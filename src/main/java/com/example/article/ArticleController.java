@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
+// MVC 패턴에서 Controller 역할을 해주는 어노테이션이다.
+// 요청을 받는 클래스다.
 @Controller
 @RequestMapping("article")
 @RequiredArgsConstructor
@@ -16,7 +18,9 @@ public class ArticleController {
 
     @GetMapping
     public String article(Model model) {
+        log.debug("request to /article");
         model.addAttribute("articles", articleService.readAll());
+        log.debug("before return index");
         return "index";
     }
 

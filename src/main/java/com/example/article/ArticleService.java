@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
+// 비즈니스 로직을 담당하는 클래스다.
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
@@ -24,10 +26,14 @@ public class ArticleService {
     }
 
     public List<ArticleDto> readAll() {
+        log.debug("call readAll()");
         List<ArticleDto> articleList = new ArrayList<>();
-        for (Article article: repository.findAll()) {
+//        for (Article article: repository.findAll()) {
+        for (Article article: repository.findAllByOrderByIdDesc()) {
+            log.trace(article.toString());
             articleList.add(ArticleDto.fromEntity(article));
         }
+        log.debug(articleList.toString());
 
         return articleList;
         // stream
@@ -37,7 +43,16 @@ public class ArticleService {
     }
 
     public ArticleDto read(Long id) {
-        Article article = repository.findById(id).orElseThrow();
+//        Article article = repository.findById(id).orElseThrow();
+        Optional<Article> optionalArticle = repository.findById(id);
+        // 만약 id에 해당하는 article이 없다.
+        // 서버의 원인으로서 오류는 아니지만 누군가 이런 요청을 한 적이 있다란 걸 기록하기 위한 warn
+        if (optionalArticle.isEmpty()) {
+            log.warn(String.format("article with id: %d not present", id));
+            optionalArticle.orElseThrow();
+        }
+
+        Article article = optionalArticle.get();
         return ArticleDto.fromEntity(article);
     }
 
@@ -50,5 +65,12 @@ public class ArticleService {
 
     public void delete(Long id) {
         repository.delete(repository.findById(id).orElseThrow());
+    }
+
+    // Singleton pattern 활용
+    public void single() {
+        ArticleStoreSingleton store
+          = ArticleStoreSingleton.getInstance();
+        // ...
     }
 }

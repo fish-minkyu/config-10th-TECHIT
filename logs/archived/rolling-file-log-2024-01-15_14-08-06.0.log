@@ -1,0 +1,2 @@
+2024-01-15 14:08:06,497 INFO o.s.b.StartupInfoLogger [main] Starting ArticleApplication using Java 17.0.9 with PID 4595 (/Users/eominkyu/Desktop/likelion-backend-8-config/build/classes/java/main started by eominkyu in /Users/eominkyu/Desktop/likelion-backend-8-config)
+2024-01-15 14:08:06,502 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"

@@ -1,0 +1,23 @@
+#spring:
+#  datasource:
+#    url: jdbc:sqlite:db.sqlite
+#    driver-class-name: org.sqlite.JDBC
+#  jpa:
+#    hibernate:
+#      ddl-auto: none # JPA가 직접적으로 스키마를 건들지 않게 설정, 오픈 단계에서는 none으로 설정한다.
+#    show-sql: false
+#    database-platform: org.hibernate.community.dialect.SQLiteDialect
+#    defer-datasource-initialization: true
+#  sql:
+#    init:
+#      mode: always
+#
+##logging:
+##  level:
+##    # 모든 Logger가 기본으로 적용할 출력 Level
+##    root: info
+##    # 특정 패키지에 대한 적용할 출력 Level
+##    com.example.article: debug
+##logging:
+##  # 어떤 logging 설정 파일을 전달할지 결정할 수 있다.
+##  config: file:logback-spring.xml
